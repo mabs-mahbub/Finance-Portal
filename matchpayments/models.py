@@ -38,7 +38,7 @@ def send_email(sender, **kwargs):
                 str(payment) + ' has been added to your account. '
             message += 'Please visit the website to view all the payments and transfer the amount to the given account.'
             message += '\n' + 'Also, make sure to click confirm payment after processing the payment, which to be viewed by the Treasurer to aceept the request. '
-            message += '\n' + 'Visit Website: ' + 'https://bp-hatters-portal.azurewebsites.net/'
+            message += '\n' + 'Visit Website: ' + 'https://finance-portal.com/'
             message += '\n' + 'Thank You'
             message += '\n' + 'BP Hatters'
             message += '\n' + '\n'
