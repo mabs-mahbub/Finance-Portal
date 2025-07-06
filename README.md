@@ -18,8 +18,7 @@ To work with this repository:
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/football-club-finance.git
-cd football-club-finance
+git clone https://github.com/mabs-mahbub/Finance-Portal.git
 ```
 
 ### 2. Set up your environment
@@ -40,13 +39,17 @@ cd football-club-finance
 
 ### 4. Run locally
 ```bash
+python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 ```
 
 ### 5. Run with Docker (optional)
 ```bash
-docker-compose up --build
+docker build -t football-club-finance .
+docker run -p 8000:8000 football-club-finance
+OR
+docker run -p 80:80 football-club-finance
 ```
 
 ### 6. Deploy with GitHub Actions
