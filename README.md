@@ -36,7 +36,7 @@ cd football-club-finance
 
 ### 3. Configure environment variables
 - Create a `.env` file based on `.env.example`
-- Fill in your database credentials, Django secret key, etc.
+- Fill in your database credentials, Django secret key, email details etc.
 
 ### 4. Run locally
 ```bash
