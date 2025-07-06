@@ -1,4 +1,4 @@
-# ⚽ Football Club Finance Manager
+# ⚽ Football Club Finance Portal
 
 This is a Django-based web application designed to help local football clubs manage player payments and club finances. Built with a clean, role-based interface for treasurers and players, the platform streamlines financial tracking, dues collection, and payment visibility.
 
