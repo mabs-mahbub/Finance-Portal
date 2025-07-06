@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    <script type="text/javascript" src="{% static 'blog/app.js' %}"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    {% if title %}
+        <title>BP Hatters - {{ title }}</title>
+    {% else %}
+        <title>BP Hatters</title>
+    {% endif %}
+<style>
+.navbar {
+  background-color: #AF8B5A;
+  overflow: visible;
+  z-index: 1;
+}
+.logo-image{
+    max-width: 100%;
+    position: fixed;
+    z-index: 10;
+}
+.logo-image img{
+    margin: auto -120px;
+    margin-top: 65px
+}
+.dropdown-menu{
+    background-color: #AF8B5A;
+}
+.nav-item{
+    color: white;
+}
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 4px solid #AF8B5A;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+.dropdown-item{
+  color: #ffffff;
+}
+.dropdown-item:hover{
+  color: #AF8B5A;
+  background-color: #ffffff;
+}
+@media (max-width:629px) {
+  img#optionalstuff {
+    display: none;
+  }
+}
+</style>
+
+</head>
+<body>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+        <div class="container">
+          <div style="max-width:90px;" class="logo-image ">
+            <img id="optionalstuff" src="../media/badge.png" class="img-fluid">
+          </div>
+          <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">BP Hatters</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <li>
+              <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+              </li>
+              <li>
+              <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+              </li>
+              <li>
+              <a class="nav-item nav-link" href="{% url 'policies' %}">Policy</a>
+              </li>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Matchday
+                  </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'matchday' %}">Dashboard</a>
+                  <a class="dropdown-item" href="{% url 'calendar' %}">Fixtures</a>
+                  <a class="dropdown-item" href="{% url 'calendar-availability' %}">Availability</a>
+                  <a class="dropdown-item" href="{% url 'matchpaymentsoverview' %}">Payments</a>
+                </div>
+              </li>
+              {% if request.user.is_staff %}
+              <li>
+                <a class="nav-item nav-link" href="{% url 'paymentDashboard' %}">Payment Dashboard</a>
+              </li>
+              {% endif %}
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+                <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+              {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+          {% block content %}{% endblock %}
+        </div>
+<!--         <div class="col-md-4">
+          <div class="content-section">
+            <h3>Club News</h3>
+            <p class='text-muted'>Keep in touch with the latest news from CP Hatters Football Club.
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">Fixtures</li>
+                <li class="list-group-item list-group-item-light">Results</li>
+                <li class="list-group-item list-group-item-light">Announcements</li>
+                <li class="list-group-item list-group-item-light">Payments</li>
+              </ul>
+            </p>
+          </div>
+        </div> -->
+      </div>
+    </main>
+  {% block script %}
+  <script src="#"></script>
+  {% endblock script %}
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+
+    .btn {
+        outline-color: #5a84af;
+        border: 1px solid #5a84af;
+      }
+      .btn:hover {
+        color: #ffffff;
+        background-color: #5a84af;
+        border: 1px solid #5a84af;
+      }
+      .content-section {
+        background: #ffffff;
+        padding: 10px 20px;
+        border: 4px solid #5a84af;
+        border-radius: 3px;
+        margin: auto;
+        width: 500px;
+        margin-top: auto;
+        margin-bottom: auto;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      }

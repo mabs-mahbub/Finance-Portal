@@ -1,0 +1,50 @@
+{% extends "matchpayments/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+  .btn {
+    outline-color: #5a84af;
+    border: 1px solid #5a84af;
+  }
+  .btn:hover {
+    color: #ffffff;
+    background-color: #5a84af;
+    border: 1px solid #5a84af;
+  }
+  .content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 4px solid #5a84af;
+    border-radius: 3px;
+    margin: auto;
+    width: 450px;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  }
+  
+</style>
+<br>
+<br>
+<br>
+    <div class="content-section">
+      <div class="media">
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+      </div>
+      <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <fieldset class="form-group">
+              <legend class="border-bottom mb-4">Profile Info</legend>
+              {{ u_form|crispy }}
+          </fieldset>
+          <div class="form-group">
+              <button class="btn btn-outline-info" type="submit">Update</button>
+          </div>
+      </form>
+    </div>
+{% endblock content %}

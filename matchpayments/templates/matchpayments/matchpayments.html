@@ -1,0 +1,287 @@
+{% extends 'matchpayments/base.html' %}
+{% block content %}
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.button {
+  background-color: #5a84af;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.btn {
+  outline-color: #5a84af;
+  border: 1px solid #5a84af;
+}
+.btn:hover {
+  color: #ffffff;
+  background-color: #5a84af;
+  border: 1px solid #5a84af;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #5a84af;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #5a84af;
+  color: white;
+}
+    body{
+    background:#f5f5f5;
+    margin-top:100px;
+}
+.card {
+    border: none;
+    -webkit-box-shadow: 1px 0 20px rgba(96,93,175,.05);
+    box-shadow: 1px 0 20px rgba(96,93,175,.05);
+    margin-bottom: 30px;
+}
+.table th {
+    font-weight: 500;
+    color: white;
+}
+.table thead {
+    background-color: #5a84af;
+}
+.table>tbody>tr>td, .table>tfoot>tr>td, .table>thead>tr>td {
+    padding: 14px 12px;
+    vertical-align: middle;
+}
+.table tr td {
+    color: #8887a9;
+}
+.thumb-sm {
+    height: 32px;
+    width: 32px;
+}
+.badge-soft-warning {
+    font-size: large;
+    background-color:  #f8c955;
+    color: black;
+}
+.badge-soft-success {
+    font-size: large;
+    background-color: rgb(10, 189, 10);
+    color: white;
+}
+.badge-soft-danger {
+    font-size: large;
+    background-color: rgb(221, 15, 15);
+    color: white;
+}
+
+.badge {
+    font-weight: 500;
+}
+.badge-soft-primary {
+    background-color: #AF8B5A;
+    color: #605daf;
+}
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="header-title pb-3 mt-0">Payments To Be Made:</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr class="align-self-center">
+                                    <th>Fixtures</th>
+                                    <th>Fixture Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for m in matches %}
+                                <tr>
+                                    <td>{{m.match}}</td>
+                                    <td>{{m.datespent}}</td>
+                                    <td>£{{m.amount}}</td>
+                                    {% if m.id in pending%}
+                                      <td><span class="badge badge-boxed badge-soft-warning">Pending</span></td>
+                                    {% else %}
+                                      <td><span class="badge badge-boxed badge-soft-danger">Pay</span></td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--end table-responsive-->
+                    <div class="pt-3 border-top text-right color-red"><a style='color:red; font-size: 20px;'><b>Total: </b></a> £{{total}} <i class="mdi mdi-arrow-right"></i></a></div>
+                </div>
+                <button id="myBtn" action= "doit" class="btn btn-outline-info">Pay Now</button>
+                <div id="myModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <span class="close">&times;</span>
+                      </div>
+                      <div class="modal-body">
+                        <center>
+                            <p>Below is the detail of the BP Hatters admistrator bank account, where you can transfer your due amount. Keep in mind it may take upto couple of days to authorise the payment and remove amounts from your account, if there is any issue please contact: <b>test@gmail.com</b></p>
+                            <b><p>Name: Finance-Portal</p>
+                            <p>Sort-Code: 00-00-00</p>
+                            <p>Account Number: 12345678</p></b>
+
+                            <form method="post" action='/action_button'>
+                              {% csrf_token %}
+                              <!-- <input type="text" name="amount" size="50" id="totalamount"> -->
+                              <button type="submit" class="btn btn-outline-info">Confirm Payment</button>
+                            </form>
+                        </center>
+                      </div> 
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+      <div class="row">
+          <div class="col-xl-12">
+              <div class="card">
+                  <div class="card-body">
+                      <h5 class="header-title pb-3 mt-0">Paid Payments:</h5>
+                      <div class="table-responsive">
+                          <table class="table table-hover mb-0">
+                              <thead>
+                                  <tr class="align-self-center">
+                                      <th>Fixtures</th>
+                                      <th>Fixture Date</th>
+                                      <th>Amount</th>
+                                      <th>Status</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for p in paidmatches %}
+                                  <tr>
+                                      <td>{{p.match}}</td>
+                                      <td>{{p.datespent}}</td>
+                                      <td>£{{p.amount}}</td>
+                                      <td><span class="badge badge-boxed badge-soft-success">Paid</span></td>
+                                  </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                      </div>
+                      <!--end table-responsive-->
+                      <div class="pt-3 border-top text-right color-red"><a style='color:green; font-size: 20px;'><b>Total: </b></a> £{{totalpaid}} <i class="mdi mdi-arrow-right"></i></a></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    <script>
+
+      $(document).ready(function(){
+        $('.allmatches').click(function(){
+          var txt ="";
+          $('.allmatches:checked').each(function(){
+            txt+= $(this).val()+", "
+          });
+          $('#totalamount').val(txt);
+        });
+      });
+
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+        
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+        
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+        </script>
+</div>
+{% endblock %}

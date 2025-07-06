@@ -1,0 +1,108 @@
+{% extends 'matchpayments/base.html' %}
+{% block content %}
+<head>
+	<title>CRM</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<style>
+		#total-orders{
+			background-color: #5a84af;
+		}
+		#orders-delivered{
+			background-color: #5a84af;
+		}
+		#orders-pending{
+			background-color: #5a84af;
+		}
+		.table th {
+		font-weight: 500;
+		color: white;
+	    }
+	    .table thead {
+	    	background-color: #5a84af;
+	    }
+	    .table>tbody>tr>td, .table>tfoot>tr>td, .table>thead>tr>td {
+	    	padding: 14px 12px;
+	    	vertical-align: middle;
+	    }
+	    .table tr td {
+	    	color: #8887a9;
+	    }
+	</style>
+
+</head>
+<center>
+	<br>
+<br>
+<br>
+<div class="row">
+    <div class="col">
+			<div class="col-sm-4">
+				<div class="card text-center text-white  mb-3" id="orders-pending">
+					  <div class="card-header">
+						  <h5 class="card-title">Total Matches Due</h5>
+					  </div>
+					  <div class="card-body">
+						<h3 class="card-title">{{dueMatches}}</h3>
+					  </div>
+				</div>
+			</div>
+	</div>
+
+	<div class="col">
+			<div class="col-sm-4">
+				<div class="card text-center text-white  mb-3" id="orders-pending">
+					  <div class="card-header">
+						  <h5 class="card-title">Total Amount Due</h5>
+					  </div>
+					  <div class="card-body">
+						<h3 class="card-title">£{{dueTotal}}</h3>
+					  </div>
+				</div>
+			</div>
+	</div>
+</div>
+
+<br>
+	<div class="col-md-8">
+		<h5>Players Payment</h5>
+		<hr>
+		<div class="card card-body">
+		<center>
+			<table class="table table-sm">
+				<thead>
+					<tr class="align-self-center">
+						<th>Player</th>
+						<th>NoMatchesToPay</th>
+						<th>Amount Due</th>
+						<th>Matches Due</th>
+						<th>Send Reminder</th>
+					</tr>
+				</thead>
+
+				{% for player in players_data %}
+					<tr>
+						<td>{{player.name}}</td>
+						<!--... <td>{% for m in pp.matches.all %}{{ m }}</td>{% endfor %}-->
+						<td>{{player.nomatches}}</td>
+						<td>£{{player.totalamount}}</td>
+						<td>
+							{% for match in player.matches %}
+								{{ match }}, <br>
+							{% empty %}
+								No matches
+							{% endfor %}
+						</td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'send_reminder' player.id %}">Send Reminder</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</center>
+		</div>
+	</div>
+
+</div>
+</center>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+{% endblock %}

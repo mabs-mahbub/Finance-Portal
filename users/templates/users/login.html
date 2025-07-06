@@ -1,0 +1,69 @@
+{% extends 'matchpayments/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+    .btn {
+      outline-color: #5a84af;
+      border: 1px solid #5a84af;
+    }
+    .btn:hover {
+      color: #ffffff;
+      background-color: #5a84af;
+      border: 1px solid #5a84af;
+    }
+    .content-section {
+      background: #ffffff;
+      padding: 10px 20px;
+      border: 4px solid #5a84af;
+      border-radius: 3px;
+      margin: auto;
+      width: 450px;
+	  margin-top: auto;
+	  margin-bottom: auto;
+	  display: flex;
+	  justify-content: center;
+	  flex-direction: column;
+    }
+    .message {
+        color: red
+    }
+    
+</style>
+<br>
+<br>
+<br>
+    <div class="content-section">
+        <form method="POST">
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In</legend>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <b><h6>Username*</h6></b>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="username"  class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <b><h6>Password*</h6></b>
+                    </div>
+                    <div class="input-group mb-2">
+                            <input type="password" name="password" class="form-control" >
+                    </div>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Login</button>
+                <small class="text-muted ml-2">
+                    <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                </small>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+            </small>
+        </div>
+        {% for message in messages %}
+			<p id="messages" style="color:red">{{message}}</p>
+		{% endfor %}
+    </div>
+{% endblock content %}

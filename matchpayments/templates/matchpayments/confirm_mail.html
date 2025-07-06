@@ -1,0 +1,18 @@
+{% extends 'matchpayments/base.html' %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-body">
+            <p>Are you sure you want to send reminder to {{item.player.user.username}} for total of {{item.matches.values.count}} matches due?</p>
+            <form action="{% url 'send_reminder' item.id %}" method="POST">
+                {% csrf_token %}
+                <a class="btn btn-warning" href="{% url 'paymentDashboard' %}">Cancel</a>
+                <input class="btn btn-danger" type="submit" name="Send">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

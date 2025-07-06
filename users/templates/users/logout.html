@@ -1,0 +1,14 @@
+{% extends "matchpayments/base.html" %}
+{% block content %}
+<br>
+<br>
+<br>
+<center>
+    <h4>You have been logged out</h4>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a href="{% url 'login' %}">Log In Again</a>
+        </small>
+    </div>
+</center>
+{% endblock content %}
