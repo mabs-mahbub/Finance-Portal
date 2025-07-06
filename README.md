@@ -12,6 +12,20 @@ The application is fully containerized with Docker and ready to be deployed to A
 - Infrastructure ready for Azure cloud hosting
 - Includes GitHub Actions workflow pipeline for deployment to Azure
 
+## 📸 Screenshots
+
+### Login Page
+![Login Page](screenshots/loginpage.png)
+
+### Treasurer Dashboard
+![Treasurer Dashboard](screenshots/treasurerpage.png)
+
+### Treasurer Reminder Dashboard
+![Treasurer Reminder Dashboard](screenshots/reminder.png)
+
+### Players Payment Dashboard
+![Treasurer Reminder Dashboard](screenshots/playerspayment.png)
+
 ## 🚀 Getting Started
 
 To work with this repository:
