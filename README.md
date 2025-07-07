@@ -14,6 +14,9 @@ The application is fully containerized with Docker and ready to be deployed to A
 
 ## 📸 Screenshots
 
+### Azure Architecture - Infrastrcuture Design
+![Azure Architecture](screenshots/AzureArc.jpeg)
+
 ### Login Page
 ![Login Page](screenshots/loginpage.png)
 
